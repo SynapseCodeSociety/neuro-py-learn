@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, CheckCircle, Trophy } from 'lucide-react';
 import { loadModuleSections } from '@/lib/courseLoader';
@@ -18,6 +18,7 @@ export default function ModulePage() {
   const [loading, setLoading] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
   const { getModuleProgress, completeSection, isLoaded } = useProgress();
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const loadModule = async () => {
@@ -31,6 +32,9 @@ export default function ModulePage() {
           const completed = getModuleProgress(courseId, moduleId);
           setCurrentSectionIndex(completed.length);
         }
+        
+        // Initialize refs array
+        sectionRefs.current = new Array(sectionsData.length).fill(null);
       } catch (error) {
         console.error('Failed to load module:', error);
       } finally {
@@ -40,6 +44,19 @@ export default function ModulePage() {
 
     loadModule();
   }, [moduleId, courseId, isLoaded, getModuleProgress]);
+
+  // Auto-scroll to current section
+  useEffect(() => {
+    if (sectionRefs.current[currentSectionIndex] && sections.length > 0) {
+      const targetElement = sectionRefs.current[currentSectionIndex];
+      if (targetElement) {
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+      }
+    }
+  }, [currentSectionIndex, sections.length]);
 
   const handleSectionComplete = () => {
     if (!courseId || !moduleId) return;
@@ -138,6 +155,7 @@ export default function ModulePage() {
           return (
             <div 
               key={index}
+              ref={(el) => (sectionRefs.current[index] = el)}
               className={`transition-all duration-500 ${
                 index === currentSectionIndex 
                   ? 'opacity-100 transform translate-y-0' 

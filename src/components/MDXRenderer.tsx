@@ -3,6 +3,8 @@
 import React from 'react';
 import MultipleChoice from './interactive/MultipleChoice';
 import FillInTheBlank from './interactive/FillInTheBlank';
+import ImageEmbed from './interactive/ImageEmbed';
+import YouTubeEmbed from './interactive/YouTubeEmbed';
 
 interface MDXRendererProps {
   content: string;
@@ -16,9 +18,11 @@ export function MDXRenderer({ content, isComplete, onComplete }: MDXRendererProp
     const parts = [];
     let currentIndex = 0;
     
-    // Find MultipleChoice components
+    // Find interactive components
     const multipleChoiceRegex = /<MultipleChoice correctAnswer=\{(\d+)\}>(.*?)<\/MultipleChoice>/gs;
     const fillInBlankRegex = /<FillInTheBlank correctAnswer=(?:\{(.+?)\}|(".+?")) .*?\/>/gs;
+    const imageEmbedRegex = /<ImageEmbed src=(?:\{(.+?)\}|"(.+?)") alt=(?:\{(.+?)\}|"(.+?)")(?: caption=(?:\{(.+?)\}|"(.+?)"))?.*?\/>/gs;
+    const youtubeEmbedRegex = /<YouTubeEmbed videoId=(?:\{(.+?)\}|"(.+?)")(?: title=(?:\{(.+?)\}|"(.+?)"))?.*?\/>/gs;
     
     let match;
     
@@ -53,6 +57,8 @@ export function MDXRenderer({ content, isComplete, onComplete }: MDXRendererProp
     // Reset regex
     multipleChoiceRegex.lastIndex = 0;
     fillInBlankRegex.lastIndex = 0;
+    imageEmbedRegex.lastIndex = 0;
+    youtubeEmbedRegex.lastIndex = 0;
     
     // Handle FillInTheBlank  
     while ((match = fillInBlankRegex.exec(text)) !== null) {
@@ -80,6 +86,50 @@ export function MDXRenderer({ content, isComplete, onComplete }: MDXRendererProp
         correctAnswer,
         isComplete,
         onComplete
+      });
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // Handle ImageEmbed
+    while ((match = imageEmbedRegex.exec(text)) !== null) {
+      if (match.index > currentIndex) {
+        const beforeText = text.slice(currentIndex, match.index);
+        if (beforeText.trim()) {
+          parts.push({ type: 'text', content: beforeText });
+        }
+      }
+      
+      const src = match[1] || match[2];
+      const alt = match[3] || match[4];
+      const caption = match[5] || match[6];
+      
+      parts.push({
+        type: 'imageEmbed',
+        src,
+        alt,
+        caption
+      });
+      
+      currentIndex = match.index + match[0].length;
+    }
+    
+    // Handle YouTubeEmbed
+    while ((match = youtubeEmbedRegex.exec(text)) !== null) {
+      if (match.index > currentIndex) {
+        const beforeText = text.slice(currentIndex, match.index);
+        if (beforeText.trim()) {
+          parts.push({ type: 'text', content: beforeText });
+        }
+      }
+      
+      const videoId = match[1] || match[2];
+      const title = match[3] || match[4];
+      
+      parts.push({
+        type: 'youtubeEmbed',
+        videoId,
+        title
       });
       
       currentIndex = match.index + match[0].length;
@@ -141,6 +191,23 @@ export function MDXRenderer({ content, isComplete, onComplete }: MDXRendererProp
                 correctAnswer={part.correctAnswer}
                 isComplete={part.isComplete}
                 onComplete={part.onComplete}
+              />
+            );
+          case 'imageEmbed':
+            return (
+              <ImageEmbed
+                key={index}
+                src={part.src}
+                alt={part.alt}
+                caption={part.caption}
+              />
+            );
+          case 'youtubeEmbed':
+            return (
+              <YouTubeEmbed
+                key={index}
+                videoId={part.videoId}
+                title={part.title}
               />
             );
           default:
