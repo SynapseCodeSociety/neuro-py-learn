@@ -6,6 +6,7 @@ import { FillInTheBlankProps } from '@/lib/types';
 
 export default function FillInTheBlank({ 
   correctAnswer, 
+  isComplete,
   onComplete, 
   placeholder = "Type your answer...",
   caseSensitive = false 
@@ -15,9 +16,19 @@ export default function FillInTheBlank({
   const [isCorrect, setIsCorrect] = useState(false);
   const [attempts, setAttempts] = useState(0);
 
+  console.log('Correct answer at first is:', correctAnswer);
+
+  if (isComplete && value === '') {
+    const aCorrectAnswer = Array.isArray(correctAnswer) ? correctAnswer[0] : correctAnswer;
+    setValue(aCorrectAnswer);
+    setIsCorrect(true);
+    return;
+  }
+
   const checkAnswer = (userAnswer: string, correct: string | string[]): boolean => {
     const answers = Array.isArray(correct) ? correct : [correct];
-    const userInput = caseSensitive ? userAnswer.trim() : userAnswer.trim().toLowerCase();
+    let userInput = caseSensitive ? userAnswer.trim() : userAnswer.trim().toLowerCase();
+    userInput = userInput.replace(/"/g, "'"); // Normalize quotes
     
     return answers.some(answer => {
       const checkAgainst = caseSensitive ? answer : answer.toLowerCase();
@@ -26,11 +37,14 @@ export default function FillInTheBlank({
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    if (isComplete) return;
+
     e.preventDefault();
     if (isCorrect || !value.trim()) return;
 
     setIsSubmitted(true);
     const correct = checkAnswer(value, correctAnswer);
+    console.log('Value:', value, 'Correct Answer:', correctAnswer, 'Is Correct:', correct, 'isComplete', isComplete);
     setIsCorrect(correct);
     setAttempts(prev => prev + 1);
 

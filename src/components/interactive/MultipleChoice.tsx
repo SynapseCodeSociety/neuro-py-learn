@@ -4,19 +4,25 @@ import React, { useState, Children, isValidElement } from 'react';
 import { CheckCircle, XCircle, Circle } from 'lucide-react';
 import { MultipleChoiceProps } from '@/lib/types';
 
-export default function MultipleChoice({ children, correctAnswer, onComplete, explanation }: MultipleChoiceProps) {
+export default function MultipleChoice({ children, correctAnswer, isComplete, onComplete, explanation }: MultipleChoiceProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const options = Children.toArray(children);
+
+  if (isComplete && selected === null) {
+    setSelected(correctAnswer);
+    setShowResult(true);
+    return;
+  }
 
   const handleSelect = (index: number) => {
     if (showResult) return;
     
     setSelected(index);
-    setShowResult(true);
     
     if (index === correctAnswer) {
       // Add success animation
+      setShowResult(true);
       setTimeout(() => {
         onComplete();
       }, 1500);
@@ -34,14 +40,14 @@ export default function MultipleChoice({ children, correctAnswer, onComplete, ex
 
         let className = "w-full text-left p-4 rounded-lg border transition-all duration-300 flex items-center justify-between group";
         
-        if (!showResult) {
-          className += " interactive-button hover:border-accent-blue hover:bg-surface-elevated cursor-pointer";
-        } else if (isCorrect) {
+        if (!isCorrect && showResult) {
+          className += " bg-surface border-border text-text-muted cursor-not-allowed";
+        } else if (isSelected && isCorrect) {
           className += " bg-accent-green/20 border-accent-green text-text-primary success-bounce";
-        } else if (isWrong) {
+        } else if (isSelected && isWrong) {
           className += " bg-destructive/20 border-destructive text-text-primary";
         } else {
-          className += " bg-surface border-border text-text-muted cursor-not-allowed";
+          className += " interactive-button hover:border-accent-blue hover:bg-surface-elevated cursor-pointer";
         }
 
         return (

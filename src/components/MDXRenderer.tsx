@@ -6,18 +6,19 @@ import FillInTheBlank from './interactive/FillInTheBlank';
 
 interface MDXRendererProps {
   content: string;
+  isComplete: boolean;
   onComplete: () => void;
 }
 
 // Simple MDX-style parser for our content
-export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
+export function MDXRenderer({ content, isComplete, onComplete }: MDXRendererProps) {
   const parseContent = (text: string) => {
     const parts = [];
     let currentIndex = 0;
     
     // Find MultipleChoice components
     const multipleChoiceRegex = /<MultipleChoice correctAnswer=\{(\d+)\}>(.*?)<\/MultipleChoice>/gs;
-    const fillInBlankRegex = /<FillInTheBlank correctAnswer=\{?(.*?)\}? .*?\/>/gs;
+    const fillInBlankRegex = /<FillInTheBlank correctAnswer=(?:\{(.+?)\}|(".+?")) .*?\/>/gs;
     
     let match;
     
@@ -32,6 +33,7 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
       }
       
       const correctAnswer = parseInt(match[1]);
+
       const optionsText = match[2];
       const options = optionsText.split('<p>').filter(p => p.includes('</p>')).map(p => 
         p.replace('</p>', '').trim()
@@ -41,6 +43,7 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
         type: 'multipleChoice',
         correctAnswer,
         options,
+        isComplete,
         onComplete
       });
       
@@ -60,7 +63,11 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
         }
       }
       
-      let correctAnswer = match[1];
+      console.log('Match found:', match);
+
+      let correctAnswer = match[1] || match[2];
+      console.log('Correct answer found:', correctAnswer);
+
       // Handle array format ["answer1", "answer2"]
       if (correctAnswer.startsWith('[') && correctAnswer.endsWith(']')) {
         correctAnswer = JSON.parse(correctAnswer);
@@ -71,6 +78,7 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
       parts.push({
         type: 'fillInBlank',
         correctAnswer,
+        isComplete,
         onComplete
       });
       
@@ -118,6 +126,7 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
               <MultipleChoice 
                 key={index} 
                 correctAnswer={part.correctAnswer} 
+                isComplete={part.isComplete}
                 onComplete={part.onComplete}
               >
                 {part.options.map((option: string, optIndex: number) => (
@@ -130,6 +139,7 @@ export function MDXRenderer({ content, onComplete }: MDXRendererProps) {
               <FillInTheBlank
                 key={index}
                 correctAnswer={part.correctAnswer}
+                isComplete={part.isComplete}
                 onComplete={part.onComplete}
               />
             );

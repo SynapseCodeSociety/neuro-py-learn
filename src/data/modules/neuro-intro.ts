@@ -10,16 +10,13 @@ In this course, you'll discover how these microscopic cells create consciousness
   {
     content: `## The Brain's Building Blocks
 
-The nervous system is made up of specialized cells called **neurons**. These cells have a unique ability: they can transmit electrical and chemical signals across vast distances in your body.
-
----
+The nervous system is made up of specialized cells called **neurons**. These cells have a unique ability: they can transmit electrical and chemical signals across vast distances in your body.`,
+    type: 'content'
+  },
+  {
+    content: `## Neurons: The Electrical Messengers
 
 What makes neurons different from other cells in your body?
-
-**A)** They can divide rapidly  
-**B)** They can transmit electrical signals  
-**C)** They contain more DNA  
-**D)** They don't need oxygen
 
 <MultipleChoice correctAnswer={1}>
   <p>They can divide rapidly</p>
@@ -34,11 +31,11 @@ What makes neurons different from other cells in your body?
 
 Excellent! Neurons are electrical messengers. When a neuron "fires," it sends an electrical signal called an **action potential** down its length.
 
-This signal travels at speeds up to 120 meters per second - faster than a race car on a highway!
-
----
-
-Complete this sentence: When a neuron fires, it sends an electrical signal called an ______.
+This signal travels at speeds up to 120 meters per second - faster than a race car on a highway!`,
+    type: 'content'
+  },
+  {
+    content: `Complete this sentence: When a neuron fires, it sends an electrical signal called an ______.
 
 <FillInTheBlank correctAnswer="action potential" placeholder="Enter your answer..." />`,
     type: 'interactive'

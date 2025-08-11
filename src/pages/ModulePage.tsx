@@ -93,7 +93,7 @@ export default function ModulePage() {
   }
 
   const currentSection = sections[currentSectionIndex];
-  const progress = ((currentSectionIndex + 1) / sections.length) * 100;
+  const progress = ((currentSectionIndex) / sections.length) * 100;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -147,6 +147,7 @@ export default function ModulePage() {
               <div className="bg-surface border border-border rounded-xl p-8 mb-6">
                 <MDXRenderer 
                   content={section.content}
+                  isComplete={currentSectionIndex > index}
                   onComplete={index === currentSectionIndex ? handleSectionComplete : () => {}}
                 />
                 

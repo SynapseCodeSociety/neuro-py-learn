@@ -38,7 +38,7 @@ Let's write a classic first program. Type the exact line of code that will displ
 
 *Hint: Remember to use quotes around the text!*
 
-<FillInTheBlank correctAnswer={['print("Hello, World!")', "print('Hello, World!')"]} placeholder='print("...")' />`,
+<FillInTheBlank correctAnswer={"print('Hello, World!')"} placeholder='print("...")' />`,
     type: 'interactive'
   }
 ] as const;

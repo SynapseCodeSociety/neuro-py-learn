@@ -19,11 +19,11 @@ Different regions of the brain specialize in different functions:
 **Cerebral Cortex**: Higher-order thinking, decision making  
 **Hippocampus**: Memory formation and storage  
 **Amygdala**: Emotional processing, fear responses  
-**Cerebellum**: Balance and coordinated movement
-
----
-
-Which brain region is primarily responsible for memory formation?
+**Cerebellum**: Balance and coordinated movement`,
+    type: 'content'
+  },
+  {
+    content: `Which brain region is primarily responsible for memory formation?
 
 <MultipleChoice correctAnswer={1}>
   <p>Cerebral cortex</p>
@@ -38,11 +38,11 @@ Which brain region is primarily responsible for memory formation?
 
 Excellent! The brain has an amazing ability called **neuroplasticity** - the capacity to reorganize and form new neural connections throughout life.
 
-This means you can literally change your brain through learning and practice!
-
----
-
-The brain's ability to reorganize and form new connections is called ______.
+This means you can literally change your brain through learning and practice!`,
+    type: 'content'
+  },
+  {
+    content: `The brain's ability to reorganize and form new connections is called ______.
 
 <FillInTheBlank correctAnswer={["neuroplasticity", "neural plasticity"]} placeholder="Enter the scientific term..." />`,
     type: 'interactive'

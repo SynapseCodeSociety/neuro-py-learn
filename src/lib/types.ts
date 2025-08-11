@@ -21,6 +21,7 @@ export interface UserProgress {
 }
 
 export interface InteractiveComponentProps {
+  isComplete: boolean;
   onComplete: () => void;
 }
 
