@@ -1,0 +1,18 @@
+[
+  {
+    "id": "neuroscience-101",
+    "title": "Neuroscience Fundamentals",
+    "summary": "Explore the fascinating world of the human brain, from individual neurons to complex neural networks that enable thought and behavior.",
+    "moduleIds": ["neuro-intro", "neuro-neurons", "neuro-networks"],
+    "gradient": "gradient-neural",
+    "category": "science"
+  },
+  {
+    "id": "python-fundamentals",
+    "title": "Python Programming",
+    "summary": "Master the fundamentals of Python programming. Build real projects and develop computational thinking skills from the ground up.",
+    "moduleIds": ["python-basics", "python-data", "python-functions"],
+    "gradient": "gradient-code",
+    "category": "programming"
+  }
+]
