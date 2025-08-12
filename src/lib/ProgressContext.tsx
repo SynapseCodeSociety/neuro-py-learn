@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { UserProgress } from './types';
+import coursesData from '../data/courses.json';
 
 interface ProgressContextType {
   progress: UserProgress;
   isLoaded: boolean;
+  completeModule: (courseId: string, moduleId: string) => void;
   completeSection: (courseId: string, moduleId: string, sectionIndex: number) => void;
   getModuleProgress: (courseId: string, moduleId: string) => number[];
   isModuleCompleted: (courseId: string, moduleId: string, totalSections: number) => boolean;
@@ -37,6 +39,23 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('userProgress', JSON.stringify(newProgress));
   };
 
+  const completeModule = (courseId: string, moduleId: string) => {
+    const newProgress = { ...progress };
+
+    if (!newProgress[courseId]) {
+      newProgress[courseId] = { completedModules: [], completedSections: {} };
+    }
+    if (!newProgress[courseId].completedModules) {
+      newProgress[courseId].completedModules = [];
+    }
+    if (!newProgress[courseId].completedModules.includes(moduleId)) {
+      newProgress[courseId].completedModules.push(moduleId);
+      newProgress[courseId].completedModules.sort();
+    }
+
+    updateProgress(newProgress);
+  }
+
   const completeSection = (courseId: string, moduleId: string, sectionIndex: number) => {
     const newProgress = { ...progress };
     if (!newProgress[courseId]) {
@@ -50,6 +69,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
       completed.push(sectionIndex);
       completed.sort((a, b) => a - b);
     }
+
     updateProgress(newProgress);
   };
 
@@ -66,16 +86,9 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     const courseProgress = progress[courseId];
     if (!courseProgress) return { completed: 0, total: 0 };
 
-    let totalCompleted = 0;
-    let totalSections = 0;
+    let totalModules = coursesData.filter(course => course.id === courseId)[0]?.moduleIds.length || 0;
 
-    Object.values(courseProgress.completedSections).forEach(moduleProgress => {
-      totalCompleted += moduleProgress.length;
-      // Note: We'll need to know total sections per module to calculate accurately
-      // For now, we'll estimate based on completion
-    });
-
-    return { completed: totalCompleted, total: Math.max(totalCompleted, 10) };
+    return { completed: courseProgress.completedModules?.length ?? 0, total: totalModules };
   };
 
   const resetAllProgress = () => {
@@ -88,6 +101,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
     <ProgressContext.Provider value={{ 
       progress, 
       isLoaded, 
+      completeModule,
       completeSection, 
       getModuleProgress, 
       isModuleCompleted, 

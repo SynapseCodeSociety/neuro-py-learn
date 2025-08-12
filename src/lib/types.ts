@@ -14,6 +14,7 @@ export interface ModuleSection {
 
 export interface UserProgress {
   [courseId: string]: {
+    completedModules?: string[];
     completedSections: {
       [moduleId: string]: number[];
     };

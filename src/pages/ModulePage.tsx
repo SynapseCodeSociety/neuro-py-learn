@@ -17,7 +17,7 @@ export default function ModulePage() {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
-  const { getModuleProgress, completeSection, isLoaded } = useProgress();
+  const { getModuleProgress, completeSection, completeModule, isLoaded } = useProgress();
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -48,14 +48,14 @@ export default function ModulePage() {
   // Auto-scroll to current section
   useEffect(() => {
     if (sectionRefs.current[currentSectionIndex] && sections.length > 0) {
-      const targetElement = sectionRefs.current[currentSectionIndex];
-      if (targetElement) {
-        targetElement.scrollIntoView({ 
-          behavior: 'smooth', 
-          block: 'center' 
-        });
+        const targetElement = sectionRefs.current[currentSectionIndex];
+        if (targetElement) {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+          });
+        }
       }
-    }
   }, [currentSectionIndex, sections.length]);
 
   const handleSectionComplete = () => {
@@ -66,6 +66,7 @@ export default function ModulePage() {
     if (currentSectionIndex < sections.length - 1) {
       setCurrentSectionIndex(prev => prev + 1);
     } else {
+      completeModule(courseId, moduleId);
       // Module completed
       setShowCelebration(true);
       setTimeout(() => {
@@ -124,9 +125,11 @@ export default function ModulePage() {
           Back to Course
         </Link>
         
+        { currentSectionIndex < sections.length && 
         <div className="text-sm text-text-muted">
           Section {currentSectionIndex + 1} of {sections.length}
         </div>
+        }
       </div>
 
       {/* Progress Bar */}
@@ -136,7 +139,7 @@ export default function ModulePage() {
             {moduleId?.replace(/-/g, ' ')}
           </span>
           <span className="text-accent-blue font-medium">
-            {Math.round(progress)}% Complete
+            {currentSectionIndex === sections.length && <>✅</> } {Math.round(progress)}% Complete
           </span>
         </div>
         <div className="w-full bg-surface-interactive rounded-full h-2">
