@@ -8,18 +8,24 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-brand opacity-10"></div>
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-brand bg-clip-text text-transparent">
-            Shaping Future Leaders in Neuroscience
+            Learn Python & Neuroscience Together
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary mb-8 max-w-4xl mx-auto leading-relaxed">
-            At Synapse Code, we believe the future belongs to people who can connect minds—human and technological. 
-            We are proud to be the first nonprofit from Georgia working at the intersection of neuroscience and programming.
+            At Synapse Code, we teach the basics of both Python programming and neuroscience in a unique 6-week program. 
+            Each week features one Python lecture and one neuroscience lecture, culminating in brain-computer interfaces with the Neurosity Crown.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
-              to="/courses/neuroscience-101" 
+              to="/courses/python-basics" 
               className="bg-gradient-brand text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
             >
-              Start Learning
+              Python Course
+            </Link>
+            <Link 
+              to="/courses/neuroscience-101" 
+              className="bg-gradient-neural text-white px-8 py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+            >
+              Neuroscience Course
             </Link>
             <a 
               href="https://forms.gle/ifDW4zJrUQLMNHwy8" 
@@ -37,46 +43,54 @@ export default function HomePage() {
       <section className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Featured Program: SynapseCode101</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-text-primary">Our 6-Week Dual Curriculum</h2>
             <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-              Our main program is an 8-week journey where students learn both neuroscience basics and coding skills. 
-              Through live sessions, hands-on projects, and teamwork, participants get to explore how the brain works—and how code can help us understand it.
+              Every week combines one Python programming lecture with one neuroscience lecture. 
+              In the final week, we bridge both fields by exploring brain-computer interfaces using the Neurosity Crown device with Python.
             </p>
           </div>
           <div className="bg-surface border border-border rounded-2xl p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-bold mb-4 text-text-primary">What You'll Experience</h3>
+                <h3 className="text-2xl font-bold mb-4 text-text-primary">Weekly Structure</h3>
                 <ul className="space-y-3 text-text-secondary">
                   <li className="flex items-center gap-3">
                     <span className="w-2 h-2 bg-accent-blue rounded-full"></span>
-                    Weekly lessons in neuroscience and coding
+                    One Python programming lecture per week
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-2 h-2 bg-accent-purple rounded-full"></span>
-                    Live sessions with expert mentors
+                    One neuroscience fundamentals lecture per week
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-2 h-2 bg-accent-green rounded-full"></span>
-                    Hands-on projects with real brain data
+                    Hands-on projects combining both fields
                   </li>
                   <li className="flex items-center gap-3">
                     <span className="w-2 h-2 bg-accent-orange rounded-full"></span>
-                    Team collaboration and peer feedback
+                    Final week: Brain-computer interfaces with Neurosity Crown
                   </li>
                 </ul>
               </div>
               <div className="space-y-6">
                 <div className="bg-surface-elevated border border-border-interactive rounded-xl p-6">
-                  <h4 className="font-semibold text-text-primary mb-2">Projects You'll Build</h4>
-                  <p className="text-text-secondary">Analyzing EEG data with Python, visualizing brain activity, and classifying neural signals</p>
+                  <h4 className="font-semibold text-text-primary mb-2">Capstone Project</h4>
+                  <p className="text-text-secondary">Control the Neurosity Crown device using Python to read brain signals and create brain-computer interfaces</p>
                 </div>
-                <Link 
-                  to="/courses/neuroscience-101" 
-                  className="block text-center bg-gradient-learning text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
-                >
-                  Learn More
-                </Link>
+                <div className="flex gap-3">
+                  <Link 
+                    to="/courses/python-basics" 
+                    className="flex-1 text-center bg-gradient-learning text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    Python Course
+                  </Link>
+                  <Link 
+                    to="/courses/neuroscience-101" 
+                    className="flex-1 text-center bg-gradient-neural text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+                  >
+                    Neuroscience Course
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -278,9 +292,38 @@ export default function HomePage() {
             </div>
             
             <div className="flex justify-center gap-6">
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors">Instagram</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors">LinkedIn</a>
-              <a href="#" className="text-text-muted hover:text-text-primary transition-colors">YouTube</a>
+              <a 
+                href="https://instagram.com/synapse_code" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-primary transition-colors"
+              >
+                Instagram
+              </a>
+              <a 
+                href="https://linkedin.com/company/synapse-code" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-primary transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a 
+                href="https://discord.gg/synapsecode" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-primary transition-colors"
+              >
+                Discord
+              </a>
+              <a 
+                href="https://youtube.com/@synapsecode" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-text-primary transition-colors"
+              >
+                YouTube
+              </a>
             </div>
           </div>
         </div>
