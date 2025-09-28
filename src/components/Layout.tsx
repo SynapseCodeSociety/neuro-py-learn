@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { GraduationCap, User, Home, Brain } from 'lucide-react';
+import { User, Brain } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -25,32 +25,20 @@ export function Layout({ children }: LayoutProps) {
               <div className="p-2 bg-gradient-brand rounded-lg">
                 <Brain className="w-6 h-6 text-white" />
               </div>
-              LearnMind
+              Synapse Code Society
             </Link>
             
             <nav className="flex items-center gap-6">
               <Link 
-                to="/" 
+                to="/curriculum" 
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
                   isActive('/') 
                     ? 'bg-surface-elevated text-text-primary' 
                     : 'text-text-secondary hover:text-text-primary hover:bg-surface-interactive'
                 }`}
               >
-                <Home className="w-4 h-4" />
-                <span className="hidden sm:inline">Courses</span>
-              </Link>
-              
-              <Link 
-                to="/profile" 
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
-                  isActive('/profile') 
-                    ? 'bg-surface-elevated text-text-primary' 
-                    : 'text-text-secondary hover:text-text-primary hover:bg-surface-interactive'
-                }`}
-              >
-                <User className="w-4 h-4" />
-                <span className="hidden sm:inline">Profile</span>
+                📚
+                <span className="hidden sm:inline">Curriculum</span>
               </Link>
             </nav>
           </div>
@@ -64,7 +52,7 @@ export function Layout({ children }: LayoutProps) {
       <footer className="mt-16 border-t border-border bg-surface/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-text-muted">
-            <p>&copy; 2024 LearnMind. Interactive learning for curious minds.</p>
+            <p>&copy; 2025 SynapseCodeSociety. Interactive learning for curious minds.</p>
           </div>
         </div>
       </footer>
