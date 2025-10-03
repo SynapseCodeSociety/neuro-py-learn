@@ -5,9 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import HomePage from "./pages/HomePage";
-import CoursePage from "./pages/CoursePage";
-import ModulePage from "./pages/ModulePage";
-import ProfilePage from "./pages/ProfilePage";
 import CurriculumPage from "./pages/CurriculumPage";
 import NotFound from "./pages/NotFound";
 
