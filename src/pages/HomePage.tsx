@@ -104,6 +104,22 @@ export default function HomePage() {
       <section className="px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-16 text-text-primary">What Our Mentors Say</h2>
+          <div className="flex justify-center mb-12">
+            <div className="bg-surface border border-border rounded-xl p-8 max-w-2xl w-full">
+              <p className="text-lg text-text-secondary mb-6 italic">
+                "As the Co-founder and Neuroscience mentor of SynapseCode, I’m deeply grateful for the opportunity to create this kind of opportunity for young people in Georgia and beyond, and to leave a mark in advancing the neurotech field. Meeting wonderful and talented minds from around the world and seeing how their eyes spark is what keeps our team dedicated to keep going!"
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-aqua rounded-full flex items-center justify-center">
+                  <span className="text-sm font-bold">N</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-text-primary">Nina Nikoladze</p>
+                  <p className="text-sm text-text-muted">Founder & CEO @ SynapseCode</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-surface border border-border rounded-xl p-8">
               <p className="text-lg text-text-secondary mb-6 italic">

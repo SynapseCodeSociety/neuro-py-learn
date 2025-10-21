@@ -21,7 +21,8 @@
     --gradient-learning: linear-gradient(135deg, hsl(280 100% 70%), hsl(250 100% 75%));
     --gradient-neural: linear-gradient(135deg, hsl(300 100% 70%), hsl(320 100% 75%));
     --gradient-code: linear-gradient(135deg, hsl(60 100% 70%), hsl(45 100% 75%));
-    
+    --gradient-aqua: linear-gradient(135deg, hsl(190 90% 50%), hsl(160 90% 55%));
+
     /* Interactive States */
     --accent-blue: 217 91% 60%;
     --accent-purple: 262 83% 58%;

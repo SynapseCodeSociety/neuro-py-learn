@@ -77,7 +77,8 @@ export default {
 				'gradient-success': 'var(--gradient-success)',
 				'gradient-learning': 'var(--gradient-learning)',
 				'gradient-neural': 'var(--gradient-neural)',
-				'gradient-code': 'var(--gradient-code)'
+				'gradient-code': 'var(--gradient-code)',
+				'gradient-aqua': 'var(--gradient-aqua)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
